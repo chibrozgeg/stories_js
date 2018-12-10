@@ -6,12 +6,30 @@
  */
 
  class Toast {
-     constructor(){
+     constructor(params){
+         if (!params.hasOwnProperty('background')) {
+             this.backgroundClass = 'danger';
+         } else {
+             this.backgroundClass = params.background;
+         }
+
+         if (!params.hasOwnProperty('duration')) {
+            this.duration = 3;
+        } else {
+            this.duration = params.duration;
+        }
+
+        if (!params.hasOwnProperty('message')) {
+            this.message = 'Default message';
+        } else {
+            this.message = params.message;
+        }
+
          //Paramètre de définition de la couleur de fond du toast
          this.backgroundClass = 'danger';
 
          //Durée d'affichage du toast en secondes
-         this.duration = 3;
+         this.duration = 25;
      }
 
      setBackground(cssClass) {
@@ -28,7 +46,7 @@
          toaster
             .addClass(this.backgroundClass)
             .addClass('toast')
-            .html('Hello toaster');
+            .html(this.message);
 
         //ajoute le toaster au document lui-même au niveau du body
         toaster.appendTo($('body'));

@@ -61,7 +61,12 @@ class Login {
 
                     $('#btnLogin').attr('disabled', 'disabled');
 
-                    const toast = new Toast;
+                    const toast = new Toast(
+                        {
+                            'message' : 'Ce login ou ce mdp, et pas fdp, ne corresp à rien ni personne (en Harley Davidson)',
+                            'duration' : 2
+                        }
+                    );
                     toast.toastIt();
                 }
             }
