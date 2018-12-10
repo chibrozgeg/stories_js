@@ -9,6 +9,7 @@ class Login {
 
         //Définition du listener sur le formulaire, le listener a été défini juste en dessous (ce qu'in fait) et est appelé ds le constructor pour être exécuté par défault.
         this.formListener();
+        this.submitListener();
     }
     /**
     * Gestionnaire d'événement sur le formulaire login
@@ -30,8 +31,24 @@ class Login {
                 } else {
                     $('#btnLogin').attr('disabled', 'disabled');
                 }
+            }
+        );
+    }
 
-                console.log('Login : ' + login.val() + password.val());
+    submitListener() {
+        $('#loginForm').on(
+            'submit',
+            function(event) {
+                event.preventDefault();
+                const user = new User();
+                user.setUserName($('[name="loginField"]').val());
+                user.setPassword($('[name="passwordField"]').val());
+
+                if (user.authenticate()){
+                    console.log('Oki');
+                } else {
+                    console.log('Pas Oki');
+                }
             }
         );
     }
