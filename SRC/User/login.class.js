@@ -7,6 +7,10 @@ class Login {
         //modif le titre de la page
         $('#main-title').html('Identifiez-vous');
 
+        //defini les 2 attributs
+        this.login = $('[name="loginField"]');
+        this.password = $('[name="passwordField"]');
+
         //Définition du listener sur le formulaire, le listener a été défini juste en dessous (ce qu'in fait) et est appelé ds le constructor pour être exécuté par défault.
         this.formListener();
         this.submitListener();
@@ -17,6 +21,8 @@ class Login {
     * @return void
     */
     formListener() {
+        let login = this.login;
+        let password =this.password;
         $('#loginForm').on(
             'keyup',
             //CallBack : intervient ssi l'événement défini survient (ici c'est un changement que l'on a defini par change)
@@ -36,18 +42,24 @@ class Login {
     }
 
     submitListener() {
+        let login = this.login;
+        let password =this.password;
         $('#loginForm').on(
             'submit',
             function(event) {
                 event.preventDefault();
                 const user = new User();
-                user.setUserName($('[name="loginField"]').val());
-                user.setPassword($('[name="passwordField"]').val());
+                user.setUserName(login.val());
+                user.setPassword(password.val());
 
-                if (user.authenticate()){
+                if (user.authenticate() === true){
                     console.log('Oki');
                 } else {
                     console.log('Pas Oki');
+                    login.val('');
+                    password.val('');
+
+                    $('#btnLogin').attr('disabled', 'disabled');
                 }
             }
         );
