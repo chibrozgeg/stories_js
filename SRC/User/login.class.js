@@ -25,7 +25,7 @@ class Login {
                 const password = $('[name="passwordField"]');
 
                 // Est-ce que les 2 champs sont remplis le bouton est actif, sinon on lui précise de le désavtiver
-                if (login.val() !== '' && password.val() !== '') {
+                if (password.val() !== '' && login.val().length >= 5 ) {
                     $('#btnLogin').removeAttr('disabled');
                 } else {
                     $('#btnLogin').attr('disabled', 'disabled');
