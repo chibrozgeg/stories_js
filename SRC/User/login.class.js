@@ -60,6 +60,9 @@ class Login {
                     password.val('');
 
                     $('#btnLogin').attr('disabled', 'disabled');
+
+                    const toast = new Toast;
+                    toast.toastIt();
                 }
             }
         );
