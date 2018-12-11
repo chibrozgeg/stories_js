@@ -25,7 +25,7 @@ class Login {
         let password =this.password;
         $('#loginForm').on(
             'keyup',
-            //CallBack : intervient ssi l'événement défini survient (ici c'est un changement que l'on a defini par change)
+            //CallBack : intervient ssi l'événement défini survient (ici c'est un changement que l'on a defini par keyup)
             function(event) {
                 //verif le contenu des champs
                 const login = $('[name="loginField"]');
