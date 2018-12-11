@@ -1,40 +1,46 @@
-class Login {
-    constructor() {
-        //$ est le raccourcis jquery et document est le selecteur, attr (attribute) est la méthode (de jquery) et on définir l'attribue entre (). 
-        //dans l'idex c'est le mot entre les balises titre. le identifiez vous sera la nouvelle valeur du titre.
-        $(document).attr('title', 'Identifiez-vous');
+import { User } from './user.class';
+import { Menu } from './../menu/menu.class';
+import { Toast } from './../modules/toaster/toast.class';
 
-        //modif le titre de la page
+export class Login {
+    constructor() {
+        // Modifier le titre du document HTML
+        $(document).attr('title', 'Identification');
+
+        // Modifier le titre de la page
         $('#main-title').html('Identifiez-vous');
 
-        //defini les 2 attributs
+        // Définition des attributs
         this.login = $('[name="loginField"]');
         this.password = $('[name="passwordField"]');
 
-        //Définition du listener sur le formulaire, le listener a été défini juste en dessous (ce qu'in fait) et est appelé ds le constructor pour être exécuté par défault.
+        // Définition du listener sur le formulaire
         this.formListener();
         this.submitListener();
     }
+
     /**
-    * Gestionnaire d'événement sur le formulaire login
-    * @param void
-    * @return void
-    */
+     * formListener Gestionnaire d'événement sur le formulaire de login
+     * @param void
+     * @return void
+     */
     formListener() {
         let login = this.login;
-        let password =this.password;
+        let password = this.password;
+
         $('#loginForm').on(
             'keyup',
-            //CallBack : intervient ssi l'événement défini survient (ici c'est un changement que l'on a defini par keyup)
+            // Callback : fonction appelée si l'événement défini survient
             function(event) {
-                //verif le contenu des champs
-                const login = $('[name="loginField"]');
-                const password = $('[name="passwordField"]');
 
-                // Est-ce que les 2 champs sont remplis le bouton est actif, sinon on lui précise de le désavtiver
-                if (password.val() !== '' && login.val().length >= 5 ) {
+                // Est-ce que les deux champs sont remplis
+                if ( 
+                    password.val() !== '' &&
+                    login.val().length >= 5 ) {
+                    // On peut activer le bouton...
                     $('#btnLogin').removeAttr('disabled');
                 } else {
+                    // Non, ça ne le fait pas tout seul, il faut lui dire
                     $('#btnLogin').attr('disabled', 'disabled');
                 }
             }
@@ -43,28 +49,42 @@ class Login {
 
     submitListener() {
         let login = this.login;
-        let password =this.password;
+        let password = this.password;
+
         $('#loginForm').on(
             'submit',
             function(event) {
-                event.preventDefault();
+                event.preventDefault(); // Empêche l'action par défaut...
+                
+                // Instancie un nouvel utilisateur
                 const user = new User();
+
+                // Définit le login et le password de l'utilisateur
                 user.setUserName(login.val());
                 user.setPassword(password.val());
 
-                if (user.authenticate() === true){
-                    console.log('Oki');
+                // Gère l'authentification...
+                if (user.authenticate() === true) {
+                    console.log('Oki, tu peux y aller');
+                    // Instancie le menu...
+                    const menu = new Menu();
+                    menu.setUser(user);
                 } else {
-                    console.log('Pas Oki');
+                    console.log('ko, t\'as pas le droit !');
+                    // Efface les champs et désactive le bouton
                     login.val('');
                     password.val('');
 
                     $('#btnLogin').attr('disabled', 'disabled');
 
+                    // On peut instancier un toast
                     const toast = new Toast(
                         {
-                            'message' : 'Ce login ou ce mdp, et pas fdp, ne corresp à rien ni personne (en Harley Davidson)',
-                            'duration' : 2
+                            message: 'Ce login ou ce mot de passe ne correspond à aucun utilisateur',
+                            duration: 2,
+                            background: 'warning',
+                            width: 200,
+                            height: 100
                         }
                     );
                     toast.toastIt();
