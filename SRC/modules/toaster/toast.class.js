@@ -25,11 +25,6 @@
             this.message = params.message;
         }
 
-         //Paramètre de définition de la couleur de fond du toast
-         this.backgroundClass = 'danger';
-
-         //Durée d'affichage du toast en secondes
-         this.duration = 25;
      }
 
      setBackground(cssClass) {
