@@ -115,7 +115,7 @@ var LoginController = exports.LoginController = function () {
         _classCallCheck(this, LoginController);
 
         //définit la vue pour le controleur
-        this.view = './views/loginform.view.html';
+        this.view = './src/User/login/views/loginform.view.html';
     }
     //Méthode pour récup la vue à afficher
 
@@ -123,10 +123,13 @@ var LoginController = exports.LoginController = function () {
     _createClass(LoginController, [{
         key: 'getView',
         value: function getView() {
+            //dit ou afficher la selection, app correspond à la basise app dans index
+            var app = $('[app]');
             $.get(
             //il va cherhé la donnée view et le stock dans la nouvelle variable viewContent
             this.view, function (viewContent) {
-                console.log(viewContent);
+                app.empty(); //vicde le contenu le cas échéant
+                app.html(viewContent);
             });
         }
     }]);
@@ -157,13 +160,13 @@ var _loginController = __webpack_require__(/*! ../../SRC/User/login/loginControl
 var title = document.getElementById('main-title');
 title.innerHTML = 'Hello Javascript';
 
-// Créer une instance de Login
-var login = new _login.Login();
-
 //Insance du contrôleur
 
 var controller = new _loginController.LoginController();
 controller.getView();
+
+// Créer une instance de Login
+var login = new _login.Login();
 
 /***/ }),
 
@@ -468,12 +471,14 @@ var Login = exports.Login = function () {
     _createClass(Login, [{
         key: 'formListener',
         value: function formListener() {
-            var login = this.login;
-            var password = this.password;
 
-            $('#loginForm').on('keyup',
+            var app = $('[app]');
+
+            app.on('keyup', '#loginForm',
             // Callback : fonction appelée si l'événement défini survient
             function (event) {
+                var login = $('[name="loginField"]');
+                var password = $('[name="passwordField"]');
 
                 // Est-ce que les deux champs sont remplis
                 if (password.val() !== '' && login.val().length >= 5) {
@@ -488,10 +493,12 @@ var Login = exports.Login = function () {
     }, {
         key: 'submitListener',
         value: function submitListener() {
-            var login = this.login;
-            var password = this.password;
 
-            $('#loginForm').on('submit', function (event) {
+            var app = $('[app]');
+
+            app.on('submit', '#loginForm', function (event) {
+                var login = $('[name="loginField"]');
+                var password = $('[name="passwordField"]');
                 event.preventDefault(); // Empêche l'action par défaut...
 
                 // Instancie un nouvel utilisateur
