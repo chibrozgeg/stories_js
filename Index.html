@@ -1,119 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <title>Hello Javascript</title>
 
-    <title>Hello Javascript</title>
-    
-    <!-- Feuilles de style-->
-    <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/css/custom.css" rel="stylesheet">
+        <!-- Feuilles de style -->
+        <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./assets/css/custom.css" rel="stylesheet">
+    </head>
 
-</head>
-
-<body>
-
-    <!-- Conteneur de ma page-->
-    <div class="container">
-        <header>
-         <h1 id="main-title"></h1>
-        </header>
-        <!-- Bloc principal navclass-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-            <!-- Nom du menu-->
+    <body>
+        <!-- Conteneur de page : responsive en plus !!! -->
+        <div class="container">
+            <header>
+                <h1 id="main-title"></h1>
+            </header>
+          
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <!-- Brand : nom du menu -->
                 <a class="navbar-brand" href="#">Stories</a>
-
-                <!--Menu "burger" ou déroulant -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
+                <!-- Bouton "burger" -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#stories-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
 
-              <!--Contenu des éléments du menu composé de li & a & allant jusqu'au form entouré de DIV-->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Contenu des élément du menu -->
+              <div class="collapse navbar-collapse" id="stories-menu">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" title="Accueil" href="#">Accueil <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" title="Toutes les Stories" href="#">Toutes les stories</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" title="Mes stories" href="#">Mes stories</a>
+                  </li>
 
-                  <ul class="navbar-nav mr-auto">
+                  <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Utilisateur
+                        </a>
+                        <!-- Options du menu utilisateur -->
+                        <div id="userMenuOptions" class="dropdown-menu hidden" aria-labelledby="userMenu">
+                        </div>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Chercher" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Chercher</button>
+                </form>
+              </div>
+            </nav>
 
-                        <li class="nav-item active">
-                                <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
-                        </li>
+            <!-- Docking de la SPA (non, non, ça veut dire Single Page Application) -->
+            <div app>
+                <!-- Ici, le contenu de l'application finale identifié par l'attribut "app" -->
+                <div class="row">
+                    <form id="loginForm" class="form-stacked col-md-6 center-block">
+                        <input type="text" name="loginField" autocomplete="off" class="form-control" placeholder="Votre identifiant">
+                        <input type="password" name="passwordField" autocomplete="off" class="form-control" placeholder="Votre mot de passe">
 
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Toutes les stories <span class="sr-only">(current)</span></a>
-                            </li>
-
-                                <li class="nav-item">
-                                <li class="nav-item active">
-                                <a class="nav-link" href="#">Mes stories <span class="sr-only">(current)</span></a>
-                                 
-                                <li class="nav-item dropdown">
-
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Utilisateur</a>
-
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-
-                                </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>
-
-                     </ul>
-
-                  <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                  </form>
+                        <button type="submit" id="btnLogin" class="btn btn-success" disabled>Connexion</button>
+                    </form>
                 </div>
-              </nav>
-        <!--Le Menu-->
-        <nav class="navbar-nav">
-            <ul>
-                <li>
-                    <a href="#" title="Accueil">Accueil</a>
-                </li>
-                <li>
-                        <a href="#" title="Toutes les stories">Toutes les stories</a>
-                </li>
-                <li>
-                        <a href="#" title="Mes stories">Mes stories</a>
-                </li>
-            </ul>
-        </nav>
+            </div>
 
-        <div app>
-         <!-- Ici l'app finale, l'id c le nom, class c'est le type de mise en page-->  
-            <form id="loginForm" class="form-stacked">
-
-                <input type="text" name="loginField" autocomplete="off" class="form-control" placeholder="Votre identifiant">
-                <input type="password" name="passwordField" autocomplete="off" class="form-control" placeholder="Votre mot de passe">
-                
-                <button type="submit" id="btnLogin" class="btn btn-success" disabled>Connexion</button>
-             </form> 
-
+            <footer>
+                &copy; Aélion 2018
+            </footer>
         </div>
 
-        <footer>
-            &copy; Aélion 2018
-        </footer>
-    </div>
-       
-   <!-- Balise script, premier prgm, on va cherché le bout de code dans le main.js -->
-   <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-   <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-   <script src="./src/modules/toaster/toast.class.js"></script>
-   <script src="./SRC/user/user.class.js"></script>
-   <script src="./SRC/user/login.class.js"></script>
-   <script src="./Assets/Javascript/main.js"></script>
-   
-   
-</body>
-</html>>
+        <!-- Premier script Javascript -->
+        <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="./build/main.bundle.js"></script>
+    </body>
+</html>
