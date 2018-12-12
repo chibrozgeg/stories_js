@@ -86,6 +86,56 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./SRC/User/login/loginController.js":
+/*!*******************************************!*\
+  !*** ./SRC/User/login/loginController.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name LoginController
+ * @desc Contrôleur pour la gestion du formulaire de login
+ * @author Antoine
+ * @version 1.0.0
+ */
+var LoginController = exports.LoginController = function () {
+    function LoginController() {
+        _classCallCheck(this, LoginController);
+
+        //définit la vue pour le controleur
+        this.view = './views/loginform.view.html';
+    }
+    //Méthode pour récup la vue à afficher
+
+
+    _createClass(LoginController, [{
+        key: 'getView',
+        value: function getView() {
+            $.get(
+            //il va cherhé la donnée view et le stock dans la nouvelle variable viewContent
+            this.view, function (viewContent) {
+                console.log(viewContent);
+            });
+        }
+    }]);
+
+    return LoginController;
+}();
+
+/***/ }),
+
 /***/ "./assets/javascript/main.js":
 /*!***********************************!*\
   !*** ./assets/javascript/main.js ***!
@@ -98,15 +148,22 @@
 
 var _login = __webpack_require__(/*! ./../../src/user/login.class */ "./src/user/login.class.js");
 
-var title = document.getElementById('main-title'); /**
-                                                    * @name main.js
-                                                    * @desc Point d'entrée principal dans l'application Javascript
-                                                    */
+var _loginController = __webpack_require__(/*! ../../SRC/User/login/loginController */ "./SRC/User/login/loginController.js");
 
+/**
+ * @name main.js
+ * @desc Point d'entrée principal dans l'application Javascript
+ */
+var title = document.getElementById('main-title');
 title.innerHTML = 'Hello Javascript';
 
 // Créer une instance de Login
 var login = new _login.Login();
+
+//Insance du contrôleur
+
+var controller = new _loginController.LoginController();
+controller.getView();
 
 /***/ }),
 
