@@ -139,6 +139,94 @@ var LoginController = exports.LoginController = function () {
 
 /***/ }),
 
+/***/ "./SRC/User/login/stories/storiescontroller.js":
+/*!*****************************************************!*\
+  !*** ./SRC/User/login/stories/storiescontroller.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name StoriesController
+ * @desc Contrôleur pour la gestion du formulaire stories
+ * @author Antoine
+ * @version 1.0.0
+ */
+var StoriesController = exports.StoriesController = function () {
+  function StoriesController() {
+    _classCallCheck(this, StoriesController);
+
+    //définit la vue pour le controleur
+    this.view = './src/User/login/views/storiescontroller.html';
+  }
+  //Méthode pour récup la vue à afficher
+
+
+  _createClass(StoriesController, [{
+    key: 'getView',
+    value: function getView() {
+      //dit ou afficher la selection, app correspond à la basise app dans index
+      var app = $('[app2]');
+      $.get(
+      //il va cherhé la donnée view et le stock dans la nouvelle variable viewContent
+      this.view, function (viewContent) {
+        app.empty(); //vicde le contenu le cas échéant
+        app.html(viewContent);
+      });
+    }
+  }]);
+
+  return StoriesController;
+}();
+
+/** <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Début</th>
+      <th scope="col">Fin prévue</th>
+      <th scope="col">Business Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Titre1</td>
+      <td>Début1</td>
+      <td>Fin1</td>
+      <td>BV1</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Titre2</td>
+      <td>Début2</td>
+      <td>Fin2</td>
+      <td>BV2</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Titre3</td>
+      <td>Début3</td>
+      <td>Fin3</td>
+      <td>BV3</td>
+    </tr>
+  </tbody>
+</table>*/
+
+/***/ }),
+
 /***/ "./assets/javascript/main.js":
 /*!***********************************!*\
   !*** ./assets/javascript/main.js ***!
@@ -153,20 +241,79 @@ var _login = __webpack_require__(/*! ./../../src/user/login.class */ "./src/user
 
 var _loginController = __webpack_require__(/*! ../../SRC/User/login/loginController */ "./SRC/User/login/loginController.js");
 
-/**
- * @name main.js
- * @desc Point d'entrée principal dans l'application Javascript
- */
-var title = document.getElementById('main-title');
+var _storiescontroller = __webpack_require__(/*! ../../SRC/User/login/stories/storiescontroller */ "./SRC/User/login/stories/storiescontroller.js");
+
+var title = document.getElementById('main-title'); /**
+                                                    * @name main.js
+                                                    * @desc Point d'entrée principal dans l'application Javascript
+                                                    */
+
 title.innerHTML = 'Hello Javascript';
 
-//Insance du contrôleur
+//Insance du login contrôleur
 
 var controller = new _loginController.LoginController();
 controller.getView();
 
+//Instance du stories ctrl
+var control = new _storiescontroller.StoriesController();
+control.getView();
+
 // Créer une instance de Login
 var login = new _login.Login();
+
+/***/ }),
+
+/***/ "./src/User/login/loginController.js":
+/*!*******************************************!*\
+  !*** ./src/User/login/loginController.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name LoginController
+ * @desc Contrôleur pour la gestion du formulaire de login
+ * @author Antoine
+ * @version 1.0.0
+ */
+var LoginController = exports.LoginController = function () {
+    function LoginController() {
+        _classCallCheck(this, LoginController);
+
+        //définit la vue pour le controleur
+        this.view = './src/User/login/views/loginform.view.html';
+    }
+    //Méthode pour récup la vue à afficher
+
+
+    _createClass(LoginController, [{
+        key: 'getView',
+        value: function getView() {
+            //dit ou afficher la selection, app correspond à la basise app dans index
+            var app = $('[app]');
+            $.get(
+            //il va cherhé la donnée view et le stock dans la nouvelle variable viewContent
+            this.view, function (viewContent) {
+                app.empty(); //vicde le contenu le cas échéant
+                app.html(viewContent);
+            });
+        }
+    }]);
+
+    return LoginController;
+}();
 
 /***/ }),
 
@@ -440,6 +587,8 @@ var _menu = __webpack_require__(/*! ./../menu/menu.class */ "./src/menu/menu.cla
 
 var _toast = __webpack_require__(/*! ./../modules/toaster/toast.class */ "./src/modules/toaster/toast.class.js");
 
+var _loginController = __webpack_require__(/*! ./../User/login/loginController */ "./src/User/login/loginController.js");
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Login = exports.Login = function () {
@@ -514,6 +663,8 @@ var Login = exports.Login = function () {
                     // Instancie le menu...
                     var menu = new _menu.Menu();
                     menu.setUser(user);
+                    //const control = new StoriesController();
+                    //control.getView();
                 } else {
                     console.log('ko, t\'as pas le droit !');
                     // Efface les champs et désactive le bouton

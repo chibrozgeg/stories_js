@@ -1,6 +1,7 @@
 import { User } from './user.class';
 import { Menu } from './../menu/menu.class';
 import { Toast } from './../modules/toaster/toast.class';
+import {StoriesController} from './../User/login/loginController';
 
 export class Login {
     constructor() {
@@ -75,6 +76,8 @@ export class Login {
                     // Instancie le menu...
                     const menu = new Menu();
                     menu.setUser(user);
+                    //const control = new StoriesController();
+                    //control.getView();
                 } else {
                     console.log('ko, t\'as pas le droit !');
                     // Efface les champs et désactive le bouton
